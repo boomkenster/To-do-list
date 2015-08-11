@@ -1,1 +1,13 @@
-<h1><%= "" %></h1>
+<h1><%= "#{@list.title}" %></h1>
+<h6><%= "#{@list.description}" %> </h6>
+
+<%= button_to "Create New Task", new_list_task_path(@list), method: :get %>
+
+<% @tasks.each do |task| %>
+  <tr>
+    <td>task.title</td>
+    <td>task.description</td>
+    <td>task.due_date</td>
+    <td>task.start_date</td>
+  </tr>
+<% end %>
