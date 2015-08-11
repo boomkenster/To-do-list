@@ -35,7 +35,7 @@ class TasksController < ApplicationController
   def complete
     @task = Task.find(params[:format])
     @task.list_id = params[:list_id]
-    @task.complete
+    @task.mark_complete
     @task.save!
     redirect_to list_path(@task.list_id)
   end

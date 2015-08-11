@@ -9,9 +9,9 @@ RSpec.describe "user" do
 
     click_button "Create List"
     click_link "First"
-
+    list = List.first
     expect(page).to have_content("First")
     expect(page).to have_content("Stuff")
-    expect(current_path).to eq(new_list_task_path)
+    expect(current_path).to eq(list_path(list.id))
   end
 end

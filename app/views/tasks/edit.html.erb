@@ -1,0 +1,13 @@
+<h3> Let's change it up </h3>
+<%= form_for @task, url: list_task_path(params[:list_id], @task.id) do |f| %>
+  <%= f.text_field :title, placeholder:"Title" %>
+  <%= f.text_field :description, placeholder:"Description" %>
+  <%= f.date_field :start_date, plaecholder: "mm/dd/year" %>
+  <%= f.date_field :due_date, plaecholder: "mm/dd/year" %>
+  <%= f.submit %>
+
+
+  <% flash.each do |type, message| %>
+    <p> <%= message %></p>
+  <%end %>
+<% end %>
