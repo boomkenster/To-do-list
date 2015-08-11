@@ -1,0 +1,16 @@
+<div class="index-container">
+
+<h2>All List</h2>
+
+<%= button_to "Create New List", new_list_path, method: :get %>
+  <% @lists.each do |list| %>
+      <div class="col-lg-3">
+      <tr>
+        <td><%= link_to "#{list.title}", list_path(list) %></td>
+        <td><%= "#{list.description}" %></td>
+        <td><%= link_to "Edit", edit_list_path(list) %></td>
+        <td><%= link_to "Remove", list_path(list), method: :delete, data: { confirm: "Are you sure you want to remove this list?"} %></td>
+      </tr>
+    </div>
+  <% end %>
+</div>
