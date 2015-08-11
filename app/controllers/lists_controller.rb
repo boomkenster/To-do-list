@@ -15,10 +15,10 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      flash[:message] = "List has been created!"
+      flash.now[:message] = "List has been created!"
       redirect_to root_path
     else
-      flash[:errors] = @list.errors.full_messages.join(", ")
+      flash.now[:errors] = @list.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -39,10 +39,10 @@ class ListsController < ApplicationController
   def destroy
     @list = List.find(params[:id])
     if @list.destroy
-      flash[:message] = "List has been removed"
+      flash.now[:message] = "List has been removed"
       redirect_to root_path
     else
-      flash[:errors] = @list.errors.full_messages
+      flash.now[:errors] = @list.errors.full_messages
       redirect_to root_path
     end
   end

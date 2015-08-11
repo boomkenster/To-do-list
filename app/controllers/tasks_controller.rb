@@ -7,12 +7,37 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.list_id = params[:list_id]
     if @task.save
-      flash[:message] = "Task has been created!"
+      flash.now[:message] = "Task has been created!"
       redirect_to list_path(@task.list_id)
     else
-      flash[:message] = @task.full_messages.join(", ")
+      flash.now[:message] = @task.full_messages.join(", ")
       render :new
     end
+  end
+
+  def edit
+    @task = Task.find(params[:id])
+    @task.list_id = params[:list_id]
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    @task.list_id = params[:list_id]
+    if @task.update(task_params)
+      flash.now[:message] = "Task Updated"
+      redirect_to list_path(@task.list_id)
+    else 
+      flash.now[:message] = @task.full_messages.join(", ")
+      render :edit
+    end
+  end
+
+  def complete
+    @task = Task.find(params[:format])
+    @task.list_id = params[:list_id]
+    @task.complete
+    @task.save!
+    redirect_to list_path(@task.list_id)
   end
 
 private
