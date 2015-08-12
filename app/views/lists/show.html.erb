@@ -2,7 +2,9 @@
 <h6><%= "#{@list.description}" %> </h6>
 
 <%= button_to "Create New Task", new_list_task_path(@list), method: :get %> 
-<button class="show-completed"><%="Show Completed" %></button>
+
+<p><input name="search-box" class="search-box" placeholder="Filter By Name"</p>
+<p><button class="show-completed"><%="Show Completed" %></button></p>
 
 
 <table id="myTable" class="tablesorter"> 
@@ -16,14 +18,14 @@
       <th> Image </th>
     </tr>
   </thead>
-  <tbody>  
+  <tbody class="all-task">  
   <% @tasks.each do |task| %>
-      <tr class=<%=task.status%> >
-        <td><%="#{task.title}" %></td>
-        <td><%="#{task.description}" %></td>
-        <td><%="#{task.start_date}" %></td>
-        <td><%="#{task.due_date}" %></td>
-        <td><%="#{task.status}" %></td>
+      <tr class="<%=task.status%>" >
+        <td class="title"><%="#{task.title}" %></td>
+        <td class="description"><%="#{task.description}" %></td>
+        <td class="start-date"><%="#{task.start_date}" %></td>
+        <td class="due-date"><%="#{task.due_date}" %></td>
+        <td class="task-status"><%="#{task.status}" %></td>
         <td><%= image_tag task.image.url(:medium) %><%= link_to "Remove", list_tasks_image_delete_path(list_id: @list.id, task_id: task.id), method: :delete %></td>
         <td><%= link_to "Edit", edit_list_task_path(@list.id, task) %></td>
       </tr>
