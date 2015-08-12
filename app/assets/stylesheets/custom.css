@@ -2,6 +2,10 @@
   display: none;
 }
 
+.future{
+  display: none;
+}
+
 h1{
   margin-top: 70px;
 }

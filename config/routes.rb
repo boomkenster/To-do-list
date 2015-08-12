@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   resources :lists do
     resources :tasks do
       delete "/remove", to: "tasks#image_remove"
-      post "tasks/complete", to: "tasks#complete"
+      # post "/change", to: "tasks#change_status"
     end
   end
+
+  post "/change_status", to: "tasks#change_status"
 
  
   root to: 'lists#index'
