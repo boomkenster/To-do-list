@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
   resources :lists do
-    resources :tasks
-     post "tasks/complete", to: "tasks#complete"
-     delete "tasks/image_delete", to: "tasks#image_delete"
+    resources :tasks do
+      delete "/remove", to: "tasks#image_remove"
+      post "tasks/complete", to: "tasks#complete"
+    end
   end
 
  

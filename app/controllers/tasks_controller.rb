@@ -40,11 +40,22 @@ class TasksController < ApplicationController
     redirect_to list_path(@task.list_id)
   end
 
-  def destroy
+  def image_remove
     @task = Task.find(params[:task_id])
     @task.image = nil
     @task.save
     redirect_to list_path(@task.list_id)
+  end
+
+  def destroy
+    @task = Task.find(params[:task_id])
+    if @task.destroy
+      flash.now[:message] = "List has been removed"
+      redirect_to list_path(@task.list_id)
+    else
+      flash.now[:errors] = @list.errors.full_messages
+      redirect_to root_path
+    end
   end
 
 private
