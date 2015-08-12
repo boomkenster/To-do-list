@@ -40,12 +40,20 @@ class TasksController < ApplicationController
     redirect_to list_path(@task.list_id)
   end
 
+  def destroy
+    @task = Task.find(params[:task_id])
+    @task.image = nil
+    @task.save
+    redirect_to list_path(@task.list_id)
+  end
+
 private
   def task_params
     params.require(:task).permit(:title,
-                               :description,
-                               :start_date,
-                               :due_date
+                                 :description,
+                                 :start_date,
+                                 :due_date,
+                                 :image
                               )
   end
 end

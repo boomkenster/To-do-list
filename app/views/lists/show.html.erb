@@ -1,30 +1,19 @@
 <h1><%= "#{@list.title}" %></h1>
 <h6><%= "#{@list.description}" %> </h6>
 
-<%= button_to "Create New Task", new_list_task_path(@list), method: :get %>
+<%= button_to "Create New Task", new_list_task_path(@list), method: :get %> 
+<button class="show-completed"><%="Show Completed" %></button>
 
 <% @tasks.each do |task| %>
-  <% if task.complete? %>
-    <div class="Incomplete">
+    <div class=<%= "#{task.status}"%> >
       <tr>
+        <td><%= image_tag task.image.url(:medium) %><%= link_to "Remove", list_tasks_image_delete_path(list_id: @list.id, task_id: task.id), method: :delete %></td>
         <td><strong>Title:</strong> <%= " #{task.title}" %></td><br>
         <td><strong>Description:</strong> <%= " #{task.description}" %></td><br>
         <td><strong>Start Date:</strong><%= " #{task.start_date}" %></td><br>
         <td><strong>Due Date:</strong><%= " #{task.due_date}" %></td><br>
-        <td><strong>Status:</strong><%= " #{task.status}"  %> </td><td><%= button_to 'Mark Complete', list_tasks_complete_path(@list.id, task.id), :task_id => task.id, :method=>:post  %></td>
+        <td class="status"><strong>Status:</strong><%= " #{task.status}"  %> </td><td><button class="change-status" href="#" data-change-status="<%= task.id %>"> Mark Complete</button></td>
         <td><%= link_to "Edit", edit_list_task_path(@list.id, task) %></td><br>
       </tr>
     </div>
-  <% else %>
-    <div class="Complete">
-          <tr>
-        <td><strong>Title:</strong> <%= " #{task.title}" %></td><br>
-        <td><strong>Description:</strong> <%= " #{task.description}" %></td><br>
-        <td><strong>Start Date:</strong><%= " #{task.start_date}" %></td><br>
-        <td><strong>Due Date:</strong><%= " #{task.due_date}" %></td><br>
-        <td><strong>Status:</strong><%= " #{task.status}"  %> </td><td><%= button_to 'Mark Complete', list_tasks_complete_path(@list.id, task.id), :task_id => task.id, :method=>:post  %></td>
-        <td><%= link_to "Edit", edit_list_task_path(@list.id, task) %></td><br>
-      </tr>
-    </div> 
-  <% end %>
 <% end %>

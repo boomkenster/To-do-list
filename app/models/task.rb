@@ -2,9 +2,10 @@ class Task < ActiveRecord::Base
   belongs_to :list
   validates :title, presence:true
   validate :start_date_cannot_be_in_the_past
-  validate :due_date_cannot_be_in_the_past
-            
+  validate :due_date_cannot_be_in_the_past           
   before_save :default_values
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   def default_values
     self.status = "Incomplete"
@@ -15,7 +16,7 @@ class Task < ActiveRecord::Base
   end
 
   def complete?
-    self.status = "Incomplete"
+    self.status = "Complete"
   end
 
   def self.future
