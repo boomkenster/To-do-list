@@ -61,7 +61,6 @@ class TasksController < ApplicationController
   def change_status
     @task = Task.find(params[:task_id].to_i)
     @task.status = params[:status]
-
     if @task.save
       respond_with @task
     else

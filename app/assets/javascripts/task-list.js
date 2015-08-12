@@ -23,9 +23,11 @@ $(document).ready(function(){
       if (currentStatus === "Incomplete"){
         $(this).html("Complete");
         taskStatus = "Complete";
+        $(this).parent().parent().toggleClass("Incomplete Complete")
       } else if ($(currentStatus === "Complete")) {
           $(this).html("Incomplete");
           taskStatus = "Incomplete";
+          $(this).parent().parent().toggleClass("Complete  Incomplete")
       }
 
       $.ajax({
