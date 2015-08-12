@@ -4,16 +4,30 @@
 <%= button_to "Create New Task", new_list_task_path(@list), method: :get %> 
 <button class="show-completed"><%="Show Completed" %></button>
 
-<% @tasks.each do |task| %>
-    <div class=<%= "#{task.status}"%> >
-      <tr>
+
+<table id="myTable" class="tablesorter"> 
+  <thead>
+    <tr>
+      <th><strong>Title</strong></th>
+      <th><strong>Description</strong></th>
+      <th><strong>Start Date</strong></th>
+      <th><strong>Due Date</strong></th>
+      <th><strong>Status</strong></th>
+      <th> Image </th>
+    </tr>
+  </thead>
+  <tbody>  
+  <% @tasks.each do |task| %>
+      <tr class=<%=task.status%> >
+        <td><%="#{task.title}" %></td>
+        <td><%="#{task.description}" %></td>
+        <td><%="#{task.start_date}" %></td>
+        <td><%="#{task.due_date}" %></td>
+        <td><%="#{task.status}" %></td>
         <td><%= image_tag task.image.url(:medium) %><%= link_to "Remove", list_tasks_image_delete_path(list_id: @list.id, task_id: task.id), method: :delete %></td>
-        <td><strong>Title:</strong> <%= " #{task.title}" %></td><br>
-        <td><strong>Description:</strong> <%= " #{task.description}" %></td><br>
-        <td><strong>Start Date:</strong><%= " #{task.start_date}" %></td><br>
-        <td><strong>Due Date:</strong><%= " #{task.due_date}" %></td><br>
-        <td class="status"><strong>Status:</strong><%= " #{task.status}"  %> </td><td><button class="change-status" href="#" data-change-status="<%= task.id %>"> Mark Complete</button></td>
-        <td><%= link_to "Edit", edit_list_task_path(@list.id, task) %></td><br>
+        <td><%= link_to "Edit", edit_list_task_path(@list.id, task) %></td>
       </tr>
-    </div>
-<% end %>
+  <% end %>
+  </tbody>
+</table>
+
