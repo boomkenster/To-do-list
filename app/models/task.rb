@@ -35,4 +35,8 @@ validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
     end
   end
 
+  def the_past?
+    true if self.start_date.present? && self.start_date <= Date.today
+  end
+
 end

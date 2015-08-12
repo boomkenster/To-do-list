@@ -3,7 +3,7 @@
 
 <p><input name="search-box" class="search-box" placeholder="Filter By Name"</p>
 
-<p><button class="show-completed"><%="Show Completed" %></button><%= button_to "Create New Task", new_list_task_path(@list), method: :get %>  </p>
+<p><button class="show-completed"><%="Show All" %></button><%= button_to "Create New Task", new_list_task_path(@list), method: :get %>  </p>
 
 <table id="myTable" class="tablesorter"> 
   <thead>
@@ -18,6 +18,17 @@
   </thead>
   <tbody class="all-task">  
   <% @tasks.each do |task| %>
+    <% if !task.the_past? %>
+      <tr class="Complete" >
+        <td class="title"><%="#{task.title}" %></td>
+        <td class="description"><%="#{task.description}" %></td>
+        <td class="start-date"><%= time_tag task.start_date %></td>
+        <td class="due-date"><%= time_tag task.due_date %></td>
+        <td class="task-status"><%="#{task.status}" %></td>
+        <td><%= image_tag task.image.url(:medium) %><%= link_to "Remove Image", list_task_remove_path(list_id: @list.id, task_id: task.id), method: :delete %> | </td>
+        <td><%= link_to "Edit Task", edit_list_task_path(@list.id, task) %> |    <%= link_to "Remove Task", list_task_path(list_id: @list.id, task_id: task.id), method: :delete %></td>
+      </tr>
+      <% else %>
       <tr class="<%=task.status%>" >
         <td class="title"><%="#{task.title}" %></td>
         <td class="description"><%="#{task.description}" %></td>
@@ -27,6 +38,7 @@
         <td><%= image_tag task.image.url(:medium) %><%= link_to "Remove Image", list_task_remove_path(list_id: @list.id, task_id: task.id), method: :delete %> | </td>
         <td><%= link_to "Edit Task", edit_list_task_path(@list.id, task) %> |    <%= link_to "Remove Task", list_task_path(list_id: @list.id, task_id: task.id), method: :delete %></td>
       </tr>
+      <% end %>
   <% end %>
   </tbody>
 </table>

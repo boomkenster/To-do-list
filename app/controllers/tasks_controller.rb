@@ -10,7 +10,7 @@ class TasksController < ApplicationController
       flash.now[:message] = "Task has been created!"
       redirect_to list_path(@task.list_id)
     else
-      flash.now[:message] = @task.full_messages.join(", ")
+      flash.now[:message] = @task.errors.full_messages.join(", ")
       render :new
     end
   end
